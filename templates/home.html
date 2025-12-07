@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    <div class="max-body">
+        <a class="center-link max-link" href="https://max.ru">
+            Связаться
+            <img id="max-logo" src="{% static 'imgs/max.png' %}" alt="">
+        </a>
+    </div>
+
+    <div class="first-page">
+        <div class="fp-left">
+            <div class="logo-container">
+                <img id="logo" src="{% static 'imgs/logo.png' %}" alt="">
+            </div>
+            <div class="description">
+                <p>{{ config.WORK_HOURS }}</p>
+                <p>{{ config.DESCRIPTION }}</p>
+            </div>
+        </div>
+        <div class="fp-right">
+            <h1 class="top-title">Квесты, доступные прямо сейчас:</h1>
+            <div class="today-quests">
+                {% for quest in quests %}
+                    <div class="quest">
+                        <div class="quest-image-handler">
+                            <img src="/media/{{ quest.image }}" alt="" class="quest-image">
+                        </div>
+                        <div class="quest-data">
+                            <h2>{{ quest.title}}</h2>
+                            <p>
+                                {{ quest.desc }}
+                            </p>
+                        </div>
+                        <span class="quest-price">
+                            {{ quest.price }} ₽
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="second-page">
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Wet+Paint&display=swap');
+
+
+* {
+	font-family: "Rubik Wet Paint", system-ui;
+	font-weight: 400;
+	font-style: normal;
+}
+
+:root {
+	--bg-color: rgb(13, 13, 13);
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	background-color: var(--bg-color);
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+	display: none;
+}
+
+.description {
+	color: white;
+	font-size: 24px;
+	font-family: "Roboto", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+	font-variation-settings:
+	"wdth" 100;
+}
+
+.first-page, .second-page {
+	height: 100vh;
+	width: 100vw;
+}
+
+.first-page {
+	@media screen and (width >= 2560px) {
+		display: grid;
+		grid-template-columns: 30% 70%;
+		height: 100vh;
+		width: 100vw;
+	}
+
+	@media screen and (width >= 1920px) {
+		display: grid;
+		grid-template-columns: 30% 70%;
+		height: 100vh;
+		width: 100vw;
+	}
+
+	@media screen and (width >= 1024px) {
+		display: grid;
+		grid-template-columns: 30% 70%;
+		height: 100vh;
+		width: 100vw;
+	}
+}
+
+.fp-left {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	height: 100vh;
+	width: 30vw;
+
+	@media screen and (width >= 2560px) {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+		height: 100vh;
+		width: 30vw;
+	}
+
+	@media screen and (width >= 1920px) {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+		height: 100vh;
+		width: 30vw;
+	}
+}
+
+.logo-container {
+	@media screen and (width >= 2560px) {
+		width: 90%;
+		height: auto;
+	}
+
+	@media screen and (width >= 1920px) {
+		width: 90%;
+		height: auto;
+	}
+}
+
+#logo {
+	width: 100%;
+	height: auto;
+}
+
+.top-title {
+	color: white;
+	font-size: 48px;
+
+	@media screen and (width >= 2560px) {
+		margin-bottom: 5rem;
+	}
+
+	@media screen and (width >= 1920px) {
+		margin-bottom: 4rem;
+	}
+
+	@media screen and (width >= 1024px) {
+		margin-bottom: 3rem;
+	}
+
+}
+
+.fp-right {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	flex-direction: column;
+	height: 100vh;
+	width: 70vw;
+}
+
+.today-quests {
+	display: flex;
+	justify-content: center;
+
+	@media screen and (width >= 2560px) {
+		gap: 7rem;
+	}
+
+	@media screen and (width >= 1920px) {
+		gap: 3rem;
+	}
+
+	@media screen and (width >= 1024px) {
+		gap: 2rem;
+	}
+}
+
+.quest {
+	background-color: var(--bg-color);
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	z-index: 100;
+
+	display: block;
+	height: 100%;
+	width: 30%;
+	border: 1px solid gray;
+	font-family: "Roboto", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+	font-variation-settings: "wdth" 100;
+
+	position: relative;
+}
+
+.quest:hover {
+	transform: scale(1.1);
+	z-index: 101;
+}
+
+.max-body {
+	position: relative;
+	width: 100vw;
+}
+
+#max-logo {
+	@media screen and (width >= 2560px) {
+		height: 50px;
+		width: 50px;
+	}
+
+	@media screen and (width >= 1920px) {
+		height: 40px;
+		width: 40px;
+	}
+
+	@media screen and (width >= 1024px) {
+		height: 30px;
+		width: 30px;
+	}
+}
+
+a {
+	text-decoration: none;
+}
+
+.center-link {
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.max-link {
+	background-color: rgb(76, 73, 245);
+	color: white;
+	border-radius: 7px;
+	padding: 7px 20px;
+	width: min-content;
+	font-size: 24px;
+	position: absolute;
+
+	@media screen and (width >= 2560px) {
+		top: 30px;
+		right: 30px;
+		font-size: 20px;
+	}
+
+	@media screen and (width >= 1920px) {
+		top: 25px;
+		right: 25px;
+		font-size: 18px;
+	}
+
+	@media screen and (width >= 1024px) {
+		top: 15px;
+		right: 15px;
+		font-size: 16px;
+	}
+}
+
+.quest-image-handler {
+	width: 100%;
+}
+
+.quest-image {
+	width: 100%;
+}
+
+.quest-data {
+	padding: 1rem;
+}
+
+.quest-data > h2 {
+	color: white;
+	margin-top: 0;
+	text-align: center;
+}
+
+.quest-data > p {
+	color: white;
+	font-weight: 400;
+	font-family: 'Roboto', 'sans-serif';
+
+	@media screen and (width >= 2560px) {
+		font-size: 22px;
+	}
+
+	@media screen and (width >= 1920px) {
+		font-size: 18px;
+	}
+}
+
+.quest-price {
+	position: absolute;
+	color: indianred;
+	font-size: 24px;
+	right: 10px;
+	bottom: 10px;
+	-webkit-text-stroke: 1px gray;
+    text-stroke: 1px red;
+}

@@ -1,0 +1,131 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/admin_panel/base.css' %}">
+    <link rel="icon" href="{% static 'imgs/logo.ico' %}">
+    <title>Панель администратора</title>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>Панель администратора</h1>
+    </div>
+
+    <h1 style="margin: 1rem 0; padding-left: 1rem;">Основные настройки</h1>
+    <div class="content">
+        <div class="config">
+            <div class="config-floating">
+              <input type="text" value="{{ config.ADDRESS }}" id="address" placeholder=" ">
+              <label for="address">Адрес</label>
+            </div>
+
+            <div class="config-floating">
+              <input type="email" value="{{ config.EMAIL }}" id="email" placeholder=" ">
+              <label for="email">Email адрес</label>
+            </div>
+
+            <div class="config-floating">
+              <input type="tel" value="{{ config.PHONE_NUMBER }}" id="phone" placeholder=" ">
+              <label for="phone">Номер телефона</label>
+            </div>
+
+            <div class="config-floating">
+              <input type="url" value="{{ config.REVIEWS_LINK }}" id="reviews-link" placeholder=" ">
+              <label for="reviews-link">Ссылка на отзывы в 2GIS</label>
+            </div>
+
+            <div class="config-floating">
+              <input type="url" value="{{ config.MAX_LINK }}" id="social-link" placeholder=" ">
+              <label for="social-link">Ссылка на соц.сеть</label>
+            </div>
+
+            <div class="config-floating">
+              <input type="text" value="{{ config.WORK_HOURS }}" id="work-hours" placeholder=" ">
+              <label for="work-hours">Часы работы</label>
+            </div>
+        </div>
+
+        <div class="desc">
+            <div class="config-floating">
+                <textarea id="description" placeholder=" ">{{ config.DESCRIPTION }}</textarea>
+                <label for="description">Основное описание</label>
+            </div>
+        </div>
+
+        <h1 style="margin: 1rem 0; padding-left: 1rem;">Часто задаваемые вопросы</h1>
+        <div class="questions">
+            <table class="qtable">
+                <thead>
+                    <tr>
+                        <th>Вопрос</th>
+                        <th>Ответ</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for question in questions %}
+                        <tr class="question">
+                            <td class="q">
+                                {{ question.question }}
+                            </td>
+                            <td class="a">
+                                {{ question.answer }}
+                            </td>
+                            <td class="acts">
+                                <button class="act-button edit">Изменить</button>
+                                <button class="act-button del">Удалить</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button class="add-question">Добавить</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+
+        <h1 style="margin: 1rem 0; padding-left: 1rem;">Квесты</h1>
+        <div class="quests">
+            {% for quest in quests %}
+                <div class="quest">
+                    <div class="top">
+                        <div class="quest-image-handler">
+                            <img src="/media/{{ quest.image }}" alt="" class="quest-image">
+                        </div>
+                        <div class="quest-data">
+                            <h2>{{ quest.title}}</h2>
+                            <p>
+                                {{ quest.desc }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div class="quest-price">
+                            {{ quest.price }} ₽
+                        </div>
+                        <div class="quest-acts">
+                            <button class="act-button edit">Изменить</button>
+                            <button class="act-button del">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="quest-add">
+                +
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
