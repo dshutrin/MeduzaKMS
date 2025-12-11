@@ -1,43 +1,63 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block head %}
+{% endblock %}
+
 
 {% block content %}
-
-    <div class="max-body">
-        <a class="center-link max-link" href="https://max.ru">
-            Связаться
-            <img id="max-logo" src="{% static 'imgs/max.png' %}" alt="">
-        </a>
-    </div>
-
     <div class="first-page">
-        <div class="fp-left">
-            <div class="logo-container">
-                <img id="logo" src="{% static 'imgs/logo.png' %}" alt="">
-            </div>
-            <div class="description">
-                <p>{{ config.WORK_HOURS }}</p>
-                <p>{{ config.DESCRIPTION }}</p>
+
+
+
+        <div class="header">
+            <!-- NAVBAR -->
+            <div class="header__content">
+                <!-- Логотип и название -->
+                <div class="header__brand">
+                    <div class="header__logo">
+                        <img id="logo" src="{% static 'imgs/logo.png' %}" alt="Логотип Медуза" class="header__logo-img">
+                    </div>
+                    <h1 class="header__title">Медуза</h1>
+                </div>
+
+                <!-- Контакты и кнопка -->
+                <div class="header__contacts">
+                    <div class="header__work-hours">{{ config.WORK_HOURS }}</div>
+                    <a href="{{ config.MAX_LINK }}" target="_blank" class="header__contact-btn">
+                        <span class="header__btn-text">Связаться</span>
+                        <img src="{% static 'imgs/max.png' %}" alt="Max" class="header__btn-icon">
+                    </a>
+                </div>
             </div>
         </div>
+
+
+
         <div class="fp-right">
-            <h1 class="top-title">Квесты, доступные прямо сейчас:</h1>
+            <h1>Что такое квесты в Медузе</h1>
+            <p style="width: 50%; text-align: center; color: white; font-family: 'Roboto', sans-serif; padding-bottom: 3rem;">{{ config.DESCRIPTION }}</p>
+
             <div class="today-quests">
                 {% for quest in quests %}
                     <div class="quest">
-                        <div class="quest-image-handler">
-                            <img src="/media/{{ quest.image }}" alt="" class="quest-image">
+                        <div class="quest-top">
+                            <div class="quest-image-handler">
+                                <img src="/media/{{ quest.image }}" alt="" class="quest-image">
+                            </div>
+                            <div class="quest-data">
+                                <h2>{{ quest.title}}</h2>
+                                <p>
+                                    {{ quest.desc }}
+                                </p>
+                            </div>
                         </div>
-                        <div class="quest-data">
-                            <h2>{{ quest.title}}</h2>
-                            <p>
-                                {{ quest.desc }}
-                            </p>
+                        <div class="quest-bottom">
+                            <button style="background-color: cornflowerblue; cursor: pointer; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 1rem; color: white; text-stroke: none; font-family: 'Roboto', sans-serif">Подробнее</button>
+                            <span class="quest-price">
+                                {{ quest.price }} ₽
+                            </span>
                         </div>
-                        <span class="quest-price">
-                            {{ quest.price }} ₽
-                        </span>
                     </div>
                 {% endfor %}
             </div>
@@ -46,7 +66,60 @@
 
     <div class="second-page">
 
+        <div class="sp-left">
+
+            <h1>Наши правила</h1>
+            <p class="info-text">
+                {{ config.PRAVILA }}
+            </p>
+
+            <h1>Условия бронирования</h1>
+            <p class="info-text">
+                {{ config.USLOVIYA }}
+            </p>
+
+            <h1>Аренда комнаты под угощения</h1>
+            <p class="info-text">
+                {{ config.ARENDA }}
+            </p>
+            
+        </div>
+        <div class="sp-right">
+
+            <h1>Частые вопросы</h1>
+
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+
+                {% for question in questions %}
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{ question.id }}" aria-expanded="true" aria-controls="panelsStayOpen-collapse{{ question.id }}">
+                          {{ question.question}}
+                      </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapse{{ question.id }}" class="accordion-collapse collapse">
+                      <div class="accordion-body">
+                          {{ question.answer }}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+
     </div>
 
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
+    <script src="{% static 'js/home.js' %}"></script>
 {% endblock %}

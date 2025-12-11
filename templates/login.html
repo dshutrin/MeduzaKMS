@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+
+    <style>
+        /* Базовые стили (мобильные first) */
+        .auth-section {
+            padding: 5rem 0;
+            background: rgb(13, 13, 13);
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .auth-form {
+            background: rgb(13, 13, 13);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .auth-form__title {
+            color: #b5b5b5;
+            font-size: 24px;
+            margin: 0 0 24px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .auth-form__field {
+            margin-bottom: 20px;
+        }
+
+        .auth-form__label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .auth-form__input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .auth-form__input:focus {
+            outline: none;
+            border-color: #ba4242;
+            box-shadow: 0 0 0 3px rgba(186, 66, 66, 0.1);
+        }
+
+        .auth-form__input::placeholder {
+            color: #999;
+        }
+
+        .auth-form__submit {
+            width: 100%;
+            padding: 16px;
+            background: #ba4242;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .auth-form__submit:hover {
+            background: #9c3636;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(186, 66, 66, 0.3);
+        }
+
+        .auth-form__submit:active {
+            transform: translateY(0);
+        }
+
+        .auth-form__links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .auth-form__link {
+            color: #ba4242;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .auth-form__link:hover {
+            color: #9c3636;
+            text-decoration: underline;
+        }
+
+        /* Планшет (768px и выше) */
+        @media (min-width: 768px) {
+            .auth-section {
+                padding: 40px 0;
+            }
+
+            .auth-container {
+                padding: 0 24px;
+            }
+
+            .auth-form {
+                padding: 32px;
+                max-width: 450px;
+            }
+
+            .auth-form__title {
+                font-size: 28px;
+                margin-bottom: 32px;
+            }
+
+            .auth-form__field {
+                margin-bottom: 24px;
+            }
+
+            .auth-form__label {
+                font-size: 15px;
+            }
+
+            .auth-form__input {
+                padding: 16px 18px;
+            }
+
+            .auth-form__submit {
+                padding: 18px;
+                font-size: 17px;
+            }
+
+            .auth-form__links {
+                margin-top: 24px;
+                padding-top: 24px;
+            }
+
+            .auth-form__link {
+                font-size: 15px;
+            }
+        }
+
+        /* Десктоп (1024px и выше) */
+        @media (min-width: 1024px) {
+            .auth-section {
+                padding: 60px 0;
+            }
+
+            .auth-container {
+                padding: 0 32px;
+            }
+
+            .auth-form {
+                padding: 1rem;
+                max-width: 500px;
+                border-radius: 16px;
+            }
+
+            .auth-form__title {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            .auth-form__label {
+                font-size: 16px;
+            }
+
+            .auth-form__input {
+                padding: 18px 20px;
+                font-size: 17px;
+            }
+
+            .auth-form__submit {
+                padding: 20px;
+                font-size: 18px;
+                border-radius: 10px;
+            }
+
+            .auth-form__links {
+                margin-top: 28px;
+                padding-top: 28px;
+            }
+        }
+
+        /* Большие экраны (1440px и выше) */
+        @media (min-width: 1440px) {
+            .auth-container {
+                padding: 0 48px;
+            }
+
+            .auth-form {
+                padding: 48px;
+                max-width: 550px;
+            }
+        }
+
+        .auth-form__field--error .auth-form__error {
+            display: block;
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="first-page">
+
+        <div class="header">
+            <!-- NAVBAR -->
+            <div class="header__content">
+                <!-- Логотип и название -->
+                <div class="header__brand">
+                    <div class="header__logo">
+                        <img id="logo" src="{% static 'imgs/logo.png' %}" alt="Логотип Медуза" class="header__logo-img">
+                    </div>
+                    <h1 class="header__title">Медуза</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="auth-section">
+            <div class="auth-container">
+                <form method="post" class="auth-form">
+                    <!-- CSRF токен (скрытое поле) -->
+                    {% csrf_token %}
+
+                    <!-- Заголовок формы -->
+                    <h2 class="auth-form__title">Вход в систему</h2>
+
+                    <!-- Поле логина -->
+                    <div class="auth-form__field">
+                        <label for="login" class="auth-form__label">Логин:</label>
+                        <input
+                            type="text"
+                            id="login"
+                            name="login"
+                            class="auth-form__input"
+                            placeholder="Введите ваш логин"
+                            required
+                        >
+                    </div>
+
+                    <!-- Поле пароля -->
+                    <div class="auth-form__field">
+                        <label for="password" class="auth-form__label">Пароль:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="auth-form__input"
+                            placeholder="Введите ваш пароль"
+                            required
+                        >
+                    </div>
+
+                    <!-- Кнопка отправки -->
+                    <button type="submit" class="auth-form__submit">
+                        Войти
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

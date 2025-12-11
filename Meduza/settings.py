@@ -102,6 +102,9 @@ CONSTANCE_CONFIG = {
     'ADDRESS': ('г. Москва, ул. Примерная, 1', 'Адрес', str),
     'WORK_HOURS': ('Пн-Пт: 9:00-18:00', 'Часы работы', str),
 	'DESCRIPTION': ('Описание', 'Описание', str),
+	'PRAVILA': ('Наши правила', 'Правила', str),
+	'USLOVIYA': ('Наши условия бронирования', 'Условия бронирования', str),
+	'ARENDA': ('Аренда комнаты под угощения', 'Аренда', str)
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

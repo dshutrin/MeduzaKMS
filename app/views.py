@@ -1,5 +1,6 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from constance import config
 from .models import *
@@ -17,7 +18,7 @@ def home(request):
 	})
 
 
-@login_required(login_url='/admin_login')
+@login_required(login_url='/login')
 def admin_panel(request):
 	if request.user.is_superuser:
 
@@ -30,3 +31,24 @@ def admin_panel(request):
 		})
 
 	return HttpResponse(status=404)
+
+
+def login_view(request):
+
+
+	if request.method == 'GET':
+		return render(request, 'login.html')
+	elif request.method == 'POST':
+		username = request.POST['login']
+		password = request.POST['password']
+
+		usr = authenticate(request, username=username, password=password)
+		if usr is not None:
+
+			login(request, usr)
+			return HttpResponseRedirect('/admin_panel')
+
+		else:
+			return render(request, 'login.html', {
+				'error': 'Ошибка входа. Проверьте правильность введённых данных!'
+			})
