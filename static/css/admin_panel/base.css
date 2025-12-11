@@ -40,13 +40,15 @@ html, body {
 
 .config-floating input,
 .config-floating textarea {
-	width: calc(100% - 40px);
+	width: calc(100% - 42px);
 	padding: 1rem 20px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	border-radius: 8px;
 	background: rgb(20, 20, 20);
 	transition: all 0.3s ease;
+	height: calc(100% - 2rem - 2px);
+	overflow: visible !important;
 }
 
 .config-floating textarea {
@@ -289,4 +291,23 @@ html, body {
 .acts {
 	display: flex;
 	gap: 1rem;
+}
+
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+/* Для контейнеров с контентом */
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
 }

@@ -20,52 +20,52 @@
     <div class="content">
         <div class="config">
             <div class="config-floating">
-              <input type="text" value="{{ config.ADDRESS }}" id="address" placeholder=" ">
+              <input type="text" value="{{ config.ADDRESS }}" id="address" placeholder=" " onchange="update_config()">
               <label for="address">Адрес</label>
             </div>
 
             <div class="config-floating">
-              <input type="email" value="{{ config.EMAIL }}" id="email" placeholder=" ">
+              <input type="email" value="{{ config.EMAIL }}" id="email" placeholder=" " onchange="update_config()">
               <label for="email">Email адрес</label>
             </div>
 
             <div class="config-floating">
-              <input type="tel" value="{{ config.PHONE_NUMBER }}" id="phone" placeholder=" ">
+              <input type="tel" value="{{ config.PHONE_NUMBER }}" id="phone" placeholder=" " onchange="update_config()">
               <label for="phone">Номер телефона</label>
             </div>
 
             <div class="config-floating">
-              <input type="url" value="{{ config.REVIEWS_LINK }}" id="reviews-link" placeholder=" ">
+              <input type="url" value="{{ config.REVIEWS_LINK }}" id="reviews-link" placeholder=" " onchange="update_config()">
               <label for="reviews-link">Ссылка на отзывы в 2GIS</label>
             </div>
 
             <div class="config-floating">
-              <input type="url" value="{{ config.MAX_LINK }}" id="social-link" placeholder=" ">
+              <input type="url" value="{{ config.MAX_LINK }}" id="social-link" placeholder=" " onchange="update_config()">
               <label for="social-link">Ссылка на соц.сеть</label>
             </div>
 
             <div class="config-floating">
-              <input type="text" value="{{ config.WORK_HOURS }}" id="work-hours" placeholder=" ">
+              <input type="text" value="{{ config.WORK_HOURS }}" id="work-hours" placeholder=" " onchange="update_config()">
               <label for="work-hours">Часы работы</label>
             </div>
         </div>
 
         <div class="desc">
             <div class="config-floating">
-                <textarea id="description" placeholder=" ">{{ config.DESCRIPTION }}</textarea>
+                <textarea id="description" placeholder=" " onchange="update_config()">{{ config.DESCRIPTION }}</textarea>
                 <label for="description">Основное описание</label>
             </div>
             <div class="config-floating">
-                <textarea id="description" placeholder=" ">{{ config.PRAVILA }}</textarea>
-                <label for="description">Наши правила</label>
+                <textarea id="roles" placeholder=" " onchange="update_config()">{{ config.PRAVILA }}</textarea>
+                <label for="roles">Наши правила</label>
             </div>
             <div class="config-floating">
-                <textarea id="description" placeholder=" ">{{ config.USLOVIYA }}</textarea>
-                <label for="description">Условия бронирования </label>
+                <textarea id="reserv_roles" placeholder=" " onchange="update_config()">{{ config.USLOVIYA }}</textarea>
+                <label for="reserv_roles">Условия бронирования </label>
             </div>
             <div class="config-floating">
-                <textarea id="description" placeholder=" ">{{ config.ARENDA }}</textarea>
-                <label for="description">Аренда комнаты под угощения</label>
+                <textarea id="arenda" placeholder=" " onchange="update_config()">{{ config.ARENDA }}</textarea>
+                <label for="arenda">Аренда комнаты под угощения</label>
             </div>
         </div>
 
@@ -89,8 +89,8 @@
                                 {{ question.answer }}
                             </td>
                             <td class="acts">
-                                <button class="act-button edit">Изменить</button>
-                                <button class="act-button del">Удалить</button>
+                                <button class="act-button edit" onclick="show_edit_question({{ question.id }})">Изменить</button>
+                                <button class="act-button del" onclick="show_rm_question({{ question.id }})">Удалить</button>
                             </td>
                         </tr>
                     {% endfor %}
@@ -98,7 +98,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <button class="add-question">Добавить</button>
+                            <button class="add-question" onclick="show_add_question()">Добавить</button>
                         </td>
                     </tr>
                 </tbody>
@@ -117,9 +117,7 @@
                         </div>
                         <div class="quest-data">
                             <h2>{{ quest.title}}</h2>
-                            <p>
-                                {{ quest.desc }}
-                            </p>
+                            {{ quest.desc|linebreaks }}
                         </div>
                     </div>
                     <div class="bottom">
@@ -127,17 +125,21 @@
                             {{ quest.price }} ₽
                         </div>
                         <div class="quest-acts">
-                            <button class="act-button edit">Изменить</button>
-                            <button class="act-button del">Удалить</button>
+                            <button onclick="show_edit_quest({{ quest.id }})" class="act-button edit">Изменить</button>
+                            <button onclick="show_rm_quest({{ quest.id }})" class="act-button del">Удалить</button>
                         </div>
                     </div>
                 </div>
             {% endfor %}
-            <div class="quest-add">
+            <div class="quest-add" onclick="show_add_quest()">
                 +
             </div>
         </div>
     </div>
+
+    {% block scripts %}
+        <script src="{% static 'js/admin_panel/main.js' %}"></script>
+    {% endblock %}
 
 </body>
 </html>

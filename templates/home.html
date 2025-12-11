@@ -36,7 +36,7 @@
 
         <div class="fp-right">
             <h1>Что такое квесты в Медузе</h1>
-            <p style="width: 50%; text-align: center; color: white; font-family: 'Roboto', sans-serif; padding-bottom: 3rem;">{{ config.DESCRIPTION }}</p>
+            {{ config.DESCRIPTION | linebreaks }}
 
             <div class="today-quests">
                 {% for quest in quests %}
@@ -48,7 +48,7 @@
                             <div class="quest-data">
                                 <h2>{{ quest.title}}</h2>
                                 <p>
-                                    {{ quest.desc }}
+                                    {{ quest.desc|linebreaksbr }}
                                 </p>
                             </div>
                         </div>
