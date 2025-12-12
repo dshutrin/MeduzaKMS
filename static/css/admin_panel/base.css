@@ -58,7 +58,7 @@ html, body {
 
 .config-floating label {
 	position: absolute;
-	top: 0;
+	top: -3px;
 	left: 15px;
 	padding: 5px;
 	font-size: 16px;
@@ -68,6 +68,7 @@ html, body {
 	transition: all 0.3s ease;
 	background: rgb(20, 20, 20);
 	margin: 0 5px;
+	border-radius: 5px;
 }
 
 .config-floating input:focus,
@@ -91,6 +92,14 @@ html, body {
 .config-floating.required label::after {
 	content: " *";
 	color: #dc3545;
+}
+
+.config-floating-checkbox {
+	margin-bottom: 1rem;
+}
+
+.config-floating-image {
+	margin: 1rem 0;
 }
 
 .desc {
@@ -234,11 +243,6 @@ html, body {
 	font-size: 108px;
 }
 
-.quest:hover, .quest-add:hover {
-	transform: scale(1.1);
-	z-index: 101;
-}
-
 .quest-image-handler {
 	width: 100%;
 }
@@ -288,7 +292,7 @@ html, body {
 	justify-content: end;
 }
 
-.acts {
+.acts > .btns {
 	display: flex;
 	gap: 1rem;
 }
@@ -311,3 +315,260 @@ html, body {
 *::-webkit-scrollbar {
     display: none;
 }
+
+#rm_question_modal.active, #edit_question_modal.active, #add_question_modal.active,
+#rm_quest_modal.active, #edit_quest_modal.active, #add_quest_modal.active {
+	top: 25px;
+}
+
+#rm_question_modal, #edit_question_modal, #add_question_modal,
+#rm_quest_modal, #edit_quest_modal, #add_quest_modal {
+	position: fixed;
+	top: -100vh;
+	height: min-content;
+	padding: 1rem;
+	left: 30vw;
+	width: calc(40vw - 2rem);
+	background-color: #2d3748;
+	border-radius: 5px;
+	border: 1px solid gray;
+	display: flex;
+	flex-direction: column;
+	transition: all 0.3s ease-in-out;
+
+	@media (width <= 1024px) {
+		left: 5vw;
+		width: calc(90vw - 2rem);
+	}
+}
+
+.modal-actions {
+	display: flex;
+	gap: 1rem;
+	width: 100%;
+	justify-content: end;
+}
+
+.modal-actions > button {
+	padding: 5px 10px;
+	color: white;
+	border: none;
+	border-radius: 5px;
+}
+
+
+
+
+
+
+
+/* Основные стили для загрузки файлов */
+.file-upload {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Область для загрузки */
+.file-upload__area {
+    display: block;
+    cursor: pointer;
+    border-radius: 12px;
+	background: rgb(13, 13, 13);
+    border: 1px solid #666;
+    padding: 30px 20px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.file-upload__area:hover {
+    border-color: #ba4242;
+    background: rgba(186, 66, 66, 0.05);
+}
+
+.file-upload__area.drag-over {
+    border-color: #ba4242;
+    background: rgba(186, 66, 66, 0.1);
+    border-style: solid;
+}
+
+/* Плейсхолдер */
+.file-upload__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+}
+
+/* Иконка */
+.file-upload__icon {
+    width: 50px;
+    height: 50px;
+    color: #ba4242;
+}
+
+/* Текстовые элементы */
+.file-upload__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.file-upload__subtitle {
+    font-size: 14px;
+    color: #666;
+}
+
+.file-upload__formats {
+    font-size: 12px;
+    color: #999;
+}
+
+/* Скрытый инпут */
+.file-upload__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Блок с информацией о файле */
+.file-info {
+    display: none;
+    margin-top: 15px;
+    animation: fadeIn 0.3s ease;
+}
+
+.file-upload.has-file .file-info {
+    display: block;
+}
+
+.file-upload.has-file .file-upload__area {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.file-info__content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: rgb(13, 13, 13);
+    border: 1px solid #666;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.file-info__icon {
+    width: 40px;
+    height: 40px;
+    color: #666;
+    flex-shrink: 0;
+}
+
+.file-info__details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0; /* Для правильной работы ellipsis */
+}
+
+.file-info__name {
+    font-weight: 500;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px;
+}
+
+.file-info__size {
+    font-size: 13px;
+    color: #666;
+}
+
+.file-info__remove {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgb(13, 13, 13);
+    border: 1px solid #666;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.file-info__remove:hover {
+    background: #dc3545;
+    border-color: #dc3545;
+    color: white;
+    transform: scale(1.1);
+}
+
+.file-info__remove svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Ошибки */
+.file-upload__error {
+    display: none;
+    margin-top: 10px;
+    padding: 12px;
+    background: #f8d7da;
+    color: #721c24;
+    border-radius: 8px;
+    font-size: 14px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивность */
+@media (min-width: 768px) {
+    .file-upload {
+        max-width: 450px;
+    }
+
+    .file-upload__area {
+        padding: 35px 25px;
+    }
+
+    .file-upload__icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .file-upload__title {
+        font-size: 20px;
+    }
+
+    .file-info__content {
+        padding: 20px;
+    }
+}
+

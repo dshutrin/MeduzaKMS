@@ -74,6 +74,7 @@
             <table class="qtable">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Вопрос</th>
                         <th>Ответ</th>
                         <th>Действия</th>
@@ -81,7 +82,10 @@
                 </thead>
                 <tbody>
                     {% for question in questions %}
-                        <tr class="question">
+                        <tr class="question" id="question_{{ question.id }}">
+                            <td>
+                                #{{ question.id }}
+                            </td>
                             <td class="q">
                                 {{ question.question }}
                             </td>
@@ -89,12 +93,15 @@
                                 {{ question.answer }}
                             </td>
                             <td class="acts">
-                                <button class="act-button edit" onclick="show_edit_question({{ question.id }})">Изменить</button>
-                                <button class="act-button del" onclick="show_rm_question({{ question.id }})">Удалить</button>
+                                <div class="btns">
+                                    <button class="act-button edit" onclick="show_edit_question({{ question.id }})">Изменить</button>
+                                    <button class="act-button del" onclick="show_rm_question({{ question.id }})">Удалить</button>
+                                </div>
                             </td>
                         </tr>
                     {% endfor %}
                     <tr>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td>
@@ -125,8 +132,8 @@
                             {{ quest.price }} ₽
                         </div>
                         <div class="quest-acts">
-                            <button onclick="show_edit_quest({{ quest.id }})" class="act-button edit">Изменить</button>
-                            <button onclick="show_rm_quest({{ quest.id }})" class="act-button del">Удалить</button>
+                            <button onclick="show_edit_quest({{ quest.id }}, '{{ quest.title }}')" class="act-button edit">Изменить</button>
+                            <button onclick="show_rm_quest({{ quest.id }}, '{{ quest.title }}')" class="act-button del">Удалить</button>
                         </div>
                     </div>
                 </div>
@@ -136,6 +143,202 @@
             </div>
         </div>
     </div>
+
+
+
+    <div id="rm_question_modal">
+        <h2 class="modal-title" id="rm_question_modal_title"></h2>
+
+        <div class="modal-actions">
+            <button style="background-color: #666666;" id="close_rm_question_modal_button" onclick="hide_rm_question()">Закрыть</button>
+            <button style="background-color: indianred;" id="confirm_rm_question_button">Удалить вопрос</button>
+        </div>
+    </div>
+
+    <div id="edit_question_modal">
+        <h2 class="modal-title" id="edit_question_modal_title"></h2>
+
+        <div class="config-floating">
+            <textarea id="edited_question" placeholder=" " onchange="update_config()"></textarea>
+            <label for="edited_question">Вопрос</label>
+        </div>
+
+        <div class="config-floating">
+            <textarea id="edited_answer" placeholder=" " onchange="update_config()"></textarea>
+            <label for="edited_answer">Ответ</label>
+        </div>
+
+        <div class="modal-actions">
+            <button style="background-color: #666666;" id="close_edit_question_modal_button" onclick="hide_edit_question()">Закрыть</button>
+            <button style="background-color: indianred;" id="confirm_edit_question_button">Сохранить</button>
+        </div>
+    </div>
+
+    <div id="add_question_modal">
+        <h2 class="modal-title" id="add_question_modal_title"></h2>
+
+        <div class="config-floating">
+            <textarea id="adding_question" placeholder=" " onchange="update_config()"></textarea>
+            <label for="adding_question">Вопрос</label>
+        </div>
+
+        <div class="config-floating">
+            <textarea id="adding_answer" placeholder=" " onchange="update_config()"></textarea>
+            <label for="adding_answer">Ответ</label>
+        </div>
+
+        <div class="modal-actions">
+            <button style="background-color: #666666;" id="close_add_question_modal_button" onclick="hide_add_question()">Закрыть</button>
+            <button style="background-color: indianred;" id="confirm_add_question_button">Добавить</button>
+        </div>
+    </div>
+
+
+
+    <div id="rm_quest_modal">
+        <h2 class="modal-title" id="rm_quest_modal_title"></h2>
+
+        <div class="modal-actions">
+            <button style="background-color: #666666;" id="close_rm_quest_modal_button" onclick="hide_rm_quest()">Закрыть</button>
+            <button style="background-color: indianred;" id="confirm_rm_quest_button">Удалить квест</button>
+        </div>
+    </div>
+
+    <div id="edit_quest_modal">
+        <h2 class="modal-title" id="edit_quest_modal_title"></h2>
+
+        <div class="file-upload file-upload--1">
+            <label for="edited_photo_1" class="file-upload__area">
+                <div class="file-upload__placeholder">
+                    <svg class="file-upload__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23 19C23 19.5304 22.7893 20.0391 22.4142 20.4142C22.0391 20.7893 21.5304 21 21 21H3C2.46957 21 1.96086 20.7893 1.58579 20.4142C1.21071 20.0391 1 19.5304 1 19V8C1 7.46957 1.21071 6.96086 1.58579 6.58579C1.96086 6.21071 2.46957 6 3 6H7L9 3H15L17 6H21C21.5304 6 22.0391 6.21071 22.4142 6.58579C22.7893 6.96086 23 7.46957 23 8V19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 17C14.2091 17 16 15.2091 16 13C16 10.7909 14.2091 9 12 9C9.79086 9 8 10.7909 8 13C8 15.2091 9.79086 17 12 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="file-upload__title">Загрузить фото</span>
+                    <span class="file-upload__subtitle">Нажмите для выбора файла</span>
+                    <span class="file-upload__formats">JPG, PNG, GIF, WebP до 5MB</span>
+                </div>
+                <input
+                    type="file"
+                    id="edited_photo_1"
+                    class="file-upload__input"
+                    accept="image/*"
+                >
+            </label>
+
+            <!-- Блок с информацией о выбранном файле -->
+            <div class="file-info file-info--1">
+                <div class="file-info__content">
+                    <svg class="file-info__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V9L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13 2V9H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="file-info__details">
+                        <span class="file-info__name"></span>
+                        <span class="file-info__size"></span>
+                    </div>
+                    <button type="button" class="file-info__remove" title="Удалить файл">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Сообщение об ошибке -->
+            <div class="file-upload__error file-upload__error--1"></div>
+        </div>
+
+        <div class="config-floating">
+            <textarea id="edited_desc" placeholder=" " onchange="update_config()"></textarea>
+            <label for="edited_desc">Описание</label>
+        </div>
+        
+        <div class="config-floating">
+            <textarea id="edited_desc2" placeholder=" " onchange="update_config()"></textarea>
+            <label for="edited_desc2">Дополнительное описание</label>
+        </div>
+
+        <div class="config-floating-checkbox">
+            <input type="checkbox" id="edited_activity">
+            <label for="edited_activity">Активный квест</label>
+        </div>
+
+        <div class="modal-actions">
+            <button style="background-color: #666666;" id="close_edit_quest_modal_button" onclick="hide_edit_quest()">Закрыть</button>
+            <button style="background-color: indianred;" id="confirm_edit_quest_button">Сохранить</button>
+        </div>
+    </div>
+
+    <div id="add_quest_modal">
+        <h2 class="modal-title" id="add_quest_modal_title"></h2>
+
+        <div class="file-upload file-upload--2">
+            <label for="edited_photo_2" class="file-upload__area">
+                <div class="file-upload__placeholder">
+                    <svg class="file-upload__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23 19C23 19.5304 22.7893 20.0391 22.4142 20.4142C22.0391 20.7893 21.5304 21 21 21H3C2.46957 21 1.96086 20.7893 1.58579 20.4142C1.21071 20.0391 1 19.5304 1 19V8C1 7.46957 1.21071 6.96086 1.58579 6.58579C1.96086 6.21071 2.46957 6 3 6H7L9 3H15L17 6H21C21.5304 6 22.0391 6.21071 22.4142 6.58579C22.7893 6.96086 23 7.46957 23 8V19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 17C14.2091 17 16 15.2091 16 13C16 10.7909 14.2091 9 12 9C9.79086 9 8 10.7909 8 13C8 15.2091 9.79086 17 12 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="file-upload__title">Загрузить фото</span>
+                    <span class="file-upload__subtitle">Нажмите для выбора файла</span>
+                    <span class="file-upload__formats">JPG, PNG, GIF, WebP до 5MB</span>
+                </div>
+                <input
+                    type="file"
+                    id="edited_photo_2"
+                    class="file-upload__input"
+                    accept="image/*"
+                >
+            </label>
+
+            <!-- Блок с информацией о выбранном файле -->
+            <div class="file-info file-info--2">
+                <div class="file-info__content">
+                    <svg class="file-info__icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V9L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M13 2V9H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="file-info__details">
+                        <span class="file-info__name"></span>
+                        <span class="file-info__size"></span>
+                    </div>
+                    <button type="button" class="file-info__remove" title="Удалить файл">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Сообщение об ошибке -->
+            <div class="file-upload__error file-upload__error--2"></div>
+        </div>
+
+        <div class="config-floating">
+            <textarea id="edited_desc" placeholder=" " onchange="update_config()"></textarea>
+            <label for="edited_desc">Описание</label>
+        </div>
+
+        <div class="config-floating">
+            <textarea id="edited_desc2" placeholder=" " onchange="update_config()"></textarea>
+            <label for="edited_desc2">Дополнительное описание</label>
+        </div>
+
+        <div class="config-floating-checkbox">
+            <input type="checkbox" id="edited_activity">
+            <label for="edited_activity">Активный квест</label>
+        </div>
+
+        <div class="modal-actions">
+            <button style="background-color: #666666;" id="close_add_quest_modal_button" onclick="hide_add_quest()">Закрыть</button>
+            <button style="background-color: indianred;" id="confirm_add_quest_button">Добавить</button>
+        </div>
+    </div>
+
+
 
     {% block scripts %}
         <script src="{% static 'js/admin_panel/main.js' %}"></script>
