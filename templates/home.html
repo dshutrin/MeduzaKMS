@@ -28,6 +28,10 @@
                         <span class="header__btn-text">Связаться</span>
                         <img src="{% static 'imgs/max.png' %}" alt="Max" class="header__btn-icon">
                     </a>
+                    <a href="{{ config.WA_LINK }}" target="_blank" class="header__contact-btn">
+                        <span class="header__btn-text">Связаться</span>
+                        <img src="{% static 'imgs/wa.svg' %}" alt="Max" class="header__btn-icon">
+                    </a>
                 </div>
             </div>
         </div>
@@ -53,10 +57,10 @@
                             </div>
                         </div>
                         <div class="quest-bottom">
-                            <button style="background-color: cornflowerblue; cursor: pointer; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 1rem; color: white; text-stroke: none; font-family: 'Roboto', sans-serif">Подробнее</button>
-                            <span class="quest-price">
+                            <button style="background-color: cornflowerblue; cursor: pointer; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 1rem; color: white; text-stroke: none; font-family: 'Roboto', sans-serif">Узнать стоимость</button>
+                            <!--<span class="quest-price">
                                 {{ quest.price }} ₽
-                            </span>
+                            </span>-->
                         </div>
                     </div>
                 {% endfor %}
@@ -68,20 +72,49 @@
 
         <div class="sp-left">
 
-            <h1>Наши правила</h1>
-            <p class="info-text">
-                {{ config.PRAVILA }}
-            </p>
+            <div class="accordion" id="accordionPanelsStayOpenExample">
 
-            <h1>Условия бронирования</h1>
-            <p class="info-text">
-                {{ config.USLOVIYA }}
-            </p>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-1" aria-expanded="true" aria-controls="panelsStayOpen-collapse-1">
+                          Наши правила
+                      </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapse-1" class="accordion-collapse collapse">
+                      <div class="accordion-body">
+                          {{ config.PRAVILA }}
+                      </div>
+                    </div>
+                  </div>
 
-            <h1>Аренда комнаты под угощения</h1>
-            <p class="info-text">
-                {{ config.ARENDA }}
-            </p>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-2" aria-expanded="true" aria-controls="panelsStayOpen-collapse-2">
+                          Условия бронирования
+                      </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapse-2" class="accordion-collapse collapse">
+                      <div class="accordion-body">
+                          {{ config.USLOVIYA }}
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse-3" aria-expanded="true" aria-controls="panelsStayOpen-collapse-3">
+                          Аренда комнаты под угощения
+                      </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapse-3" class="accordion-collapse collapse">
+                      <div class="accordion-body">
+                          {{ config.ARENDA }}
+                      </div>
+                    </div>
+                  </div>
+
+            </div>
+
             
         </div>
         <div class="sp-right">

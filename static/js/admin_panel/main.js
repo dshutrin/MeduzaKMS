@@ -1,10 +1,9 @@
 function update_config() {
 	const params = JSON.stringify({
 		address: document.getElementById('address').value,
-		email: document.getElementById('email').value,
 		phone: document.getElementById('phone').value,
-		reviews_link: document.getElementById('reviews-link').value,
-		social_link: document.getElementById('social-link').value,
+		max_link: document.getElementById('max-link').value,
+        wa_link: document.getElementById('wa-link').value,
 		work_hours: document.getElementById('work-hours').value,
 		description: document.getElementById('description').value,
 		roles: document.getElementById('roles').value,

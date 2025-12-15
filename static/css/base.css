@@ -176,7 +176,9 @@ body::-webkit-scrollbar {
 }
 
 .quest:hover {
-	transform: scale(1.1);
+	@media (width > 1200px) {
+		transform: scale(1.1);
+	}
 	z-index: 101;
 }
 

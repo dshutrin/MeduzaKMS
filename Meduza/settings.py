@@ -95,12 +95,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {
-    'REVIEWS_LINK': ('https://yandex.ru/maps/', 'Ссылка на отзывы', str),
     'PHONE_NUMBER': ('+7 (999) 123-45-67', 'Телефон для связи', str),
     'MAX_LINK': ('https://wa.me/79991234567', 'Ссылка на MAX', str),
-    'EMAIL': ('info@mysite.com', 'Email адрес', str),
+	'WA_LINK': ('https://wa.me/79991234567', 'Ссылка на WhatsAPP', str),
     'ADDRESS': ('г. Москва, ул. Примерная, 1', 'Адрес', str),
     'WORK_HOURS': ('Пн-Пт: 9:00-18:00', 'Часы работы', str),
+
 	'DESCRIPTION': ('Описание', 'Описание', str),
 	'PRAVILA': ('Наши правила', 'Правила', str),
 	'USLOVIYA': ('Наши условия бронирования', 'Условия бронирования', str),

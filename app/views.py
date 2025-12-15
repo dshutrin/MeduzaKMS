@@ -63,16 +63,17 @@ def update_config(request):
 		data = json.loads(request.body)
 
 		try:
-			config.EMAIL = data['email']
-			config.REVIEWS_LINK = data['reviews_link']
 			config.PHONE_NUMBER = data['phone']
-			config.MAX_LINK = data['social_link']
+			config.MAX_LINK = data['max_link']
+			config.WA_LINK = data['wa_link']
 			config.ADDRESS = data['address']
 			config.WORK_HOURS = data['work_hours']
+
 			config.DESCRIPTION = data['description']
 			config.PRAVILA = data['roles']
 			config.USLOVIYA = data['reserv_roles']
 			config.ARENDA = data['arenda']
+
 		except Exception as e:
 			return JsonResponse({'success': False}, status=500)
 

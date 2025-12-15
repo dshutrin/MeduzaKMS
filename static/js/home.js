@@ -1,3 +1,4 @@
+
 function createBackgroundElements() {
     // Удаляем старые элементы, если есть
     document.querySelectorAll('.background-element').forEach(el => el.remove());
@@ -8,66 +9,67 @@ function createBackgroundElements() {
     const area = width * height;
     const elementCount = Math.floor(area / 30000); // Немного больше элементов
 
-    // Серые оттенки
-    const grayShades = [
-        '#4a5568', // темно-серый
-        '#718096', // серый
-        '#a0aec0', // светло-серый
-        '#cbd5e0', // очень светло-серый
-        '#2d3748'  // очень темно-серый
+    // Список путей к изображениям из статики Django
+    // Замените на актуальные пути к вашим изображениям
+    const imagePaths = [
+        '/static/imgs/duh1.png',
+        '/static/imgs/duh2.png',
+        '/static/imgs/duh3.png'
     ];
+
+    // Если хотите использовать разные форматы, можно добавить:
+    // '/static/images/background/icon1.png',
+    // '/static/images/background/icon2.jpg',
 
     // Создаем элементы
     for (let i = 0; i < elementCount; i++) {
-        const isCross = Math.random() > 0.5;
-        const elementType = isCross ? 'cross' : 'circle';
+        // Случайный выбор картинки
+        const randomImage = imagePaths[Math.floor(Math.random() * imagePaths.length)];
 
-        // Случайный размер от 15 до 70px
-        const size = 15 + Math.random() * 55;
+        // Случайный размер от 20 до 80px
+        const size = 20 + Math.random() * 60;
 
         // Случайная позиция
         const posX = Math.random() * (width + 100) - 50;
         const posY = Math.random() * (height + 100) - 50;
 
-        // Случайный серый цвет
-        const grayColor = grayShades[Math.floor(Math.random() * grayShades.length)];
-
         // Случайная прозрачность (очень прозрачные)
-        const opacity = 0.05 + Math.random() * 0.08;
+        //const opacity = 0.04 + Math.random() * 0.1;
+        const opacity = 0.25;
 
-        // Случайный угол поворота для крестиков
-        const rotation = isCross ? Math.random() * 360 : 0;
+        // Случайный угол поворота
+        const rotation = Math.random() * 360;
 
-        // Создаем элемент
+        // Создаем элемент-изображение
         const element = document.createElement('div');
-        element.className = `background-element ${elementType}`;
+        element.className = `background-element`;
+
+        // Создаем img элемент внутри div
+        const img = document.createElement('img');
+        img.src = randomImage;
+        img.alt = 'Background decoration';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'contain';
+        img.style.filter = 'grayscale(100%) brightness(0.7)'; // Серый фильтр
+
+        element.appendChild(img);
+
+        // Стили для контейнера
         element.style.position = 'fixed';
         element.style.left = `${posX}px`;
         element.style.top = `${posY}px`;
         element.style.width = `${size}px`;
         element.style.height = `${size}px`;
         element.style.opacity = opacity;
-        element.style.zIndex = '150'; // Заданный z-index
+        element.style.zIndex = '50'; // Заданный z-index
         element.style.pointerEvents = 'auto';
         element.style.cursor = 'pointer';
-        element.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-        element.style.filter = 'grayscale(100%)'; // Гарантированно серый
-
-        if (isCross) {
-            // Создаем крестик
-            element.style.background = `
-                linear-gradient(45deg, transparent calc(50% - 1px), ${grayColor} calc(50% - 1px), ${grayColor} calc(50% + 1px), transparent calc(50% + 1px)),
-                linear-gradient(135deg, transparent calc(50% - 1px), ${grayColor} calc(50% - 1px), ${grayColor} calc(50% + 1px), transparent calc(50% + 1px))
-            `;
-            element.style.transform = `rotate(${rotation}deg) scale(0.9)`;
-            element.style.backgroundBlendMode = 'multiply';
-        } else {
-            // Создаем круг
-            element.style.borderRadius = '50%';
-            element.style.backgroundColor = grayColor;
-            element.style.border = `1px solid ${grayColor}`;
-            element.style.transform = 'scale(0.9)';
-        }
+        element.style.transition = 'opacity 0.4s ease, transform 0.4s ease, filter 0.4s ease';
+        element.style.transform = `rotate(${rotation}deg) scale(0.9)`;
+        element.style.display = 'flex';
+        element.style.alignItems = 'center';
+        element.style.justifyContent = 'center';
 
         // Добавляем анимацию появления
         element.style.animation = 'fadeInSoft 0.8s ease forwards';
@@ -80,23 +82,21 @@ function createBackgroundElements() {
 
         // Интерактивность
         element.addEventListener('mouseenter', function() {
-            this.style.opacity = '0.15';
-            this.style.transform = isCross ?
-                `rotate(${rotation}deg) scale(1.15)` :
-                'scale(1.15)';
+            this.style.opacity = '0.2';
+            this.style.transform = `rotate(${rotation}deg) scale(1.15)`;
+            this.querySelector('img').style.filter = 'grayscale(0%) brightness(1)'; // Убираем серый при наведении
         });
 
         element.addEventListener('mouseleave', function() {
             this.style.opacity = opacity;
-            this.style.transform = isCross ?
-                `rotate(${rotation}deg) scale(0.9)` :
-                'scale(0.9)';
+            this.style.transform = `rotate(${rotation}deg) scale(0.9)`;
+            this.querySelector('img').style.filter = 'grayscale(100%) brightness(0.7)';
         });
 
         // Клик удаляет элемент
         element.addEventListener('click', function() {
             this.style.opacity = '0';
-            this.style.transform = 'scale(0)';
+            this.style.transform = `rotate(${rotation}deg) scale(0)`;
             setTimeout(() => this.remove(), 400);
         });
 
@@ -104,89 +104,4 @@ function createBackgroundElements() {
     }
 }
 
-// Создаем элементы при загрузке
-document.addEventListener('DOMContentLoaded', createBackgroundElements);
-
-// Обновляем при изменении размера окна (с троттлингом)
-let resizeTimeout;
-window.addEventListener('resize', function() {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(createBackgroundElements, 250);
-});
-
-// Функция для добавления больше элементов по требованию
-window.addMoreElements = function(count = 20) {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const grayShades = ['#4a5568', '#718096', '#a0aec0', '#cbd5e0', '#2d3748'];
-
-    for (let i = 0; i < count; i++) {
-        const isCross = Math.random() > 0.5;
-        const size = 15 + Math.random() * 55;
-        const posX = Math.random() * (width + 100) - 50;
-        const posY = Math.random() * (height + 100) - 50;
-        const grayColor = grayShades[Math.floor(Math.random() * grayShades.length)];
-        const opacity = 0.05 + Math.random() * 0.08;
-        const rotation = isCross ? Math.random() * 360 : 0;
-
-        const element = document.createElement('div');
-        element.className = `background-element ${isCross ? 'cross' : 'circle'}`;
-        element.style.position = 'fixed';
-        element.style.left = `${posX}px`;
-        element.style.top = `${posY}px`;
-        element.style.width = `${size}px`;
-        element.style.height = `${size}px`;
-        element.style.opacity = '0';
-        element.style.zIndex = '50';
-        element.style.pointerEvents = 'auto';
-        element.style.cursor = 'pointer';
-        element.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-        element.style.filter = 'grayscale(100%)';
-
-        if (isCross) {
-            element.style.background = `
-                linear-gradient(45deg, transparent calc(50% - 1px), ${grayColor} calc(50% - 1px), ${grayColor} calc(50% + 1px), transparent calc(50% + 1px)),
-                linear-gradient(135deg, transparent calc(50% - 1px), ${grayColor} calc(50% - 1px), ${grayColor} calc(50% + 1px), transparent calc(50% + 1px))
-            `;
-            element.style.transform = `rotate(${rotation}deg) scale(0)`;
-        } else {
-            element.style.borderRadius = '50%';
-            element.style.backgroundColor = grayColor;
-            element.style.border = `1px solid ${grayColor}`;
-            element.style.transform = 'scale(0)';
-        }
-
-        document.body.appendChild(element);
-
-        // Анимация появления
-        setTimeout(() => {
-            element.style.opacity = opacity;
-            element.style.transform = isCross ?
-                `rotate(${rotation}deg) scale(0.9)` :
-                'scale(0.9)';
-        }, i * 50);
-
-        // Добавляем обработчики событий
-        element.addEventListener('mouseenter', function() {
-            this.style.opacity = '0.15';
-            this.style.transform = isCross ?
-                `rotate(${rotation}deg) scale(1.15)` :
-                'scale(1.15)';
-        });
-
-        element.addEventListener('mouseleave', function() {
-            this.style.opacity = opacity;
-            this.style.transform = isCross ?
-                `rotate(${rotation}deg) scale(0.9)` :
-                'scale(0.9)';
-        });
-
-        element.addEventListener('click', function() {
-            this.style.opacity = '0';
-            this.style.transform = 'scale(0)';
-            setTimeout(() => this.remove(), 400);
-        });
-    }
-
-    console.log(`Добавлено ${count} новых элементов`);
-};
+createBackgroundElements()
