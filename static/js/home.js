@@ -1,3 +1,13 @@
+function show_detailed_quest_modal(title, subdesc) {
+    document.getElementById('modal-title').innerText = title
+    document.getElementById('modal-data').innerText = subdesc
+    document.getElementById('subdesc_modal').classList.add('active')
+}
+
+function hide_detailed_quest_modal() {
+    document.getElementById('subdesc_modal').classList.remove('active')
+}
+
 
 function createBackgroundElements() {
     // Удаляем старые элементы, если есть

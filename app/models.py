@@ -14,7 +14,8 @@ class FastQuestion(Model):
 
 class Quest(Model):
 	title = CharField(verbose_name='Название квеста', max_length=255)
-	desc = TextField(verbose_name='Описание')
+	desc = TextField(verbose_name='Описание', null=True, default=None)
+	subdesc = TextField(verbose_name='Доп. описание', null=True, default=None)
 	image = ImageField(verbose_name='Фото', upload_to='quest_images')
 	price = DecimalField(verbose_name='Стоимость', max_digits=9, decimal_places=2)
 	is_active = BooleanField(verbose_name='Активен', default=False)

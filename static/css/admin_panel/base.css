@@ -498,6 +498,10 @@ html, body {
     color: #666;
 }
 
+button {
+	cursor: pointer;
+}
+
 .file-info__remove {
     width: 36px;
     height: 36px;

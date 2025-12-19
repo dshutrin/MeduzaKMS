@@ -177,7 +177,7 @@ body::-webkit-scrollbar {
 
 .quest:hover {
 	@media (width > 1200px) {
-		transform: scale(1.1);
+		transform: scale(1.02);
 	}
 	z-index: 101;
 }
@@ -279,7 +279,7 @@ a {
 
 .quest-bottom {
 	display: flex;
-	justify-content: space-between;
+	justify-content: end;
 	margin-bottom: 0.5rem;
 	width: 100%;
 	align-content: space-between;
@@ -334,7 +334,7 @@ a {
 	width: 100%;
 	display: block;
 	font-size: 22px;
-	background-color: #2d3748;
+	background-color: rgba(45, 55, 72, 0.7);
 	border: none;
 }
 
@@ -656,4 +656,96 @@ h1 {
     .header__content {
         padding: 0 48px;
     }
+}
+
+.gis-map {
+	z-index: 400;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 3rem;
+	flex-direction: column;
+	width: 100%;
+}
+
+.gis-map > iframe {
+	width: 1000px;
+
+	@media (width < 1000px) {
+		width: 100%;
+	}
+}
+
+#subdesc_modal {
+	background-color: rgb(13, 13, 13);
+	border-radius: 6px;
+	border: 1px solid #4a5568;
+	position: fixed;
+	padding: 1rem;
+	z-index: 1000;
+	top: -100vh;
+	transition: all 0.3s ease-in-out;
+
+	-webkit-box-shadow: 0px 0px 43px 2px rgba(197, 197, 197, 0.55);
+	-moz-box-shadow: 0px 0px 43px 2px rgba(197, 197, 197, 0.55);
+	box-shadow: 0px 0px 43px 2px rgba(197, 197, 197, 0.55);
+
+	@media (width <= 768px) {
+		width: calc(100% - 4rem);
+		height: calc(100% - 4rem);
+		left: 1rem;
+	}
+
+	@media (width >= 768px) {
+		width: 600px;
+		height: calc(100% - 12rem);
+		left: calc(50% - 301px);
+	}
+}
+
+#subdesc_modal.active {
+	@media (width <= 768px) {
+		top: 1rem;
+		left: 1rem;
+	}
+
+	@media (width >= 768px) {
+		top: 5rem;
+		left: calc(50% - 301px);
+	}
+}
+
+#modal-title {
+	color: white;
+	padding: 0;
+	margin: 0;
+}
+
+.modal-footer {
+	height: 2rem;
+	display: flex;
+}
+
+#close-modal-button {
+	background-color: #9c3636;
+	color: white;
+	width: 100%;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.modal-body {
+	height: calc(100% - 4rem);
+	padding: 1rem;
+	width: calc(100% - 2rem);
+	overflow-y: scroll;
+}
+
+#modal-data {
+	margin-top: 4rem;
+	font-size: 14px;
+	color: white;
+	font-family: "Roboto", sans-serif;
 }

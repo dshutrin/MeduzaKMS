@@ -57,10 +57,19 @@
                             </div>
                         </div>
                         <div class="quest-bottom">
-                            <button style="background-color: cornflowerblue; cursor: pointer; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 1rem; color: white; text-stroke: none; font-family: 'Roboto', sans-serif">Узнать стоимость</button>
-                            <!--<span class="quest-price">
-                                {{ quest.price }} ₽
-                            </span>-->
+                            <button
+                                    style="background-color: cornflowerblue;
+                                           cursor: pointer;
+                                           padding: 5px 10px;
+                                           border: none;
+                                           border-radius: 5px;
+                                           margin-right: 0.5rem;
+                                           color: white;
+                                           text-stroke: none;
+                                           font-family: 'Roboto', sans-serif;
+                                           font-size: 18px;"
+                                    onclick="show_detailed_quest_modal('{{ quest.title }}', '{{ quest.subdesc }}')"
+                            >Узнать стоимость</button>
                         </div>
                     </div>
                 {% endfor %}
@@ -111,7 +120,7 @@
                           {{ config.ARENDA }}
                       </div>
                     </div>
-                  </div>
+                </div>
 
             </div>
 
@@ -143,8 +152,36 @@
 
     </div>
 
+    <div class="gis-map">
+        <h1>Мы в 2гис</h1>
+        <a class="dg-widget-link" href="http://2gis.ru/komsomolsk/firm/70000001045189598/center/137.03906893730166,50.54368116446797/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=bigMap">Посмотреть на карте Комсомольска-на-Амуре</a>
+        <div class="dg-widget-link">
+            <a href="http://2gis.ru/komsomolsk/firm/70000001045189598/photos/70000001045189598/center/137.03906893730166,50.54368116446797/zoom/17?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=photos">Фотографии компании</a>
+        </div>
+        <div class="dg-widget-link">
+            <a href="http://2gis.ru/komsomolsk/center/137.038379,50.543706/zoom/17/routeTab/rsType/bus/to/137.038379,50.543706╎Медуза?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=route">Найти проезд до Медуза</a>
+        </div>
+        <script charset="utf-8" src="https://widgets.2gis.com/js/DGWidgetLoader.js"></script>
+        <script charset="utf-8">new DGWidgetLoader({"width": '100%',"height":600,"borderColor":"#a3a3a3","pos":{"lat":50.54368116446797,"lon":137.03906893730166,"zoom":17},"opt":{"city":"komsomolsk"},"org":[{"id":"70000001045189598"}]});</script>
+        <noscript style="color:#c00;font-size:16px;font-weight:bold;">Виджет карты использует JavaScript. Включите его в настройках вашего браузера.</noscript>
+    </div>
+
     <div class="footer">
 
+    </div>
+
+
+    <div id="subdesc_modal">
+        <div class="modal-body">
+            <h2 id="modal-title"></h2>
+            <p id="modal-data"></p>
+        </div>
+
+        <div class="modal-footer">
+            <button id="close-modal-button" onclick="hide_detailed_quest_modal()">
+                Закрыть
+            </button>
+        </div>
     </div>
 
 
