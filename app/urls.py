@@ -23,5 +23,6 @@ urlpatterns = [
     path('api/edit_quest', edit_quest),
 
     # add
-    path('api/add_question', add_question)
+    path('api/add_question', add_question),
+    path('api/add_quest', add_quest)
 ]

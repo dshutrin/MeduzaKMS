@@ -110,7 +110,8 @@ def get_quest(request, q_id):
 		'desc': quest.desc,
 		'subdesc': quest.subdesc,
 		'is_active': quest.is_active,
-		'photo': pp
+		'photo': pp,
+		'price': quest.price
 	}, status=200)
 
 
@@ -193,6 +194,9 @@ def edit_quest(request):
 		if 'description' in request.POST:
 			quest.desc = request.POST.get('description', '')
 
+		if 'price' in request.POST:
+			quest.price = request.POST.get('price', '')
+
 		if 'additional_description' in request.POST:
 			quest.subdesc = request.POST.get('additional_description', '')
 
@@ -255,6 +259,83 @@ def edit_quest(request):
 		}, status=404)
 
 	except Exception as e:
+		return JsonResponse({
+			'success': False,
+			'error': 'Ошибка при обновлении квеста'
+		}, status=500)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def add_quest(request):
+	"""Добавление квеста (простой вариант без форм)"""
+	try:
+		quest = Quest()
+
+		# Обновляем поля
+		if 'description' in request.POST:
+			quest.desc = request.POST.get('description', '')
+
+		if 'additional_description' in request.POST:
+			quest.subdesc = request.POST.get('additional_description', '')
+
+		if 'price' in request.POST:
+			quest.price = request.POST.get('price', '')
+
+		if 'title' in request.POST:
+			if request.POST.get('title', ''):
+				quest.title = request.POST.get('title', '')
+
+		if 'is_active' in request.POST:
+			quest.is_active = request.POST.get('is_active', 'true').lower() == 'true'
+
+		# Обработка загрузки изображения
+		if 'image' in request.FILES:
+			image_file = request.FILES['image']
+
+			# Валидация типа файла
+			allowed_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp']
+			file_ext = os.path.splitext(image_file.name)[1].lower()
+
+			if file_ext not in allowed_extensions:
+				return JsonResponse({
+					'success': False,
+					'error': f'Недопустимый формат файла. Разрешены: {", ".join(allowed_extensions)}'
+				}, status=400)
+
+			# Генерируем уникальное имя файла
+			file_name = f"quest___{uuid.uuid4().hex[:8]}{file_ext}"
+
+			# Сохраняем файл
+			file_path = default_storage.save(f'quests/{file_name}', ContentFile(image_file.read()))
+
+			# Удаляем старое изображение, если оно есть
+			quest.image = file_path
+
+		# Сохраняем изменения
+		quest.save()
+
+		# Формируем ответ
+		response_data = {
+			'success': True,
+			'message': 'Квест успешно обновлен',
+			'quest_id': quest.id,
+		}
+
+		# Добавляем URL изображения, если оно есть
+		if quest.image:
+			response_data['image_url'] = quest.image.url
+
+		return JsonResponse(response_data)
+
+	except Quest.DoesNotExist:
+		return JsonResponse({
+			'success': False,
+			'error': 'Квест не найден'
+		}, status=404)
+
+	except Exception as e:
+		print(e)
 		return JsonResponse({
 			'success': False,
 			'error': 'Ошибка при обновлении квеста'

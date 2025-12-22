@@ -112,7 +112,7 @@
         <h1 style="margin: 1rem 0; padding-left: 1rem;">Квесты</h1>
         <div class="quests">
             {% for quest in quests %}
-                <div class="quest">
+                <div class="quest" id="quest_{{ quest.id }}">
                     <div class="top">
                         <div class="quest-image-handler">
                             <img src="/media/{{ quest.image }}" alt="" class="quest-image">
@@ -235,6 +235,11 @@
             <label for="edited_desc2">Дополнительное описание</label>
         </div>
 
+        <div class="config-floating">
+            <input id="edited_price" placeholder=" " type="number">
+            <label for="edited_price">Стоимость</label>
+        </div>
+
         <div class="config-floating-checkbox">
             <input type="checkbox" id="edited_activity">
             <label for="edited_activity">Активный квест</label>
@@ -255,18 +260,28 @@
         </div>
 
         <div class="config-floating">
-            <textarea id="edited_desc" placeholder=" "></textarea>
-            <label for="edited_desc">Описание</label>
+            <textarea id="added_title" placeholder=" "></textarea>
+            <label for="added_title">Название</label>
         </div>
 
         <div class="config-floating">
-            <textarea id="edited_desc2" placeholder=" "></textarea>
-            <label for="edited_desc2">Дополнительное описание</label>
+            <textarea id="added_desc" placeholder=" "></textarea>
+            <label for="added_desc">Описание</label>
+        </div>
+
+        <div class="config-floating">
+            <textarea id="added_desc2" placeholder=" "></textarea>
+            <label for="added_desc2">Дополнительное описание</label>
+        </div>
+
+        <div class="config-floating">
+            <input id="added_price" placeholder=" " type="number">
+            <label for="added_price">Стоимость</label>
         </div>
 
         <div class="config-floating-checkbox">
-            <input type="checkbox" id="edited_activity">
-            <label for="edited_activity">Активный квест</label>
+            <input type="checkbox" id="added_activity">
+            <label for="added_activity">Активный квест</label>
         </div>
 
         <div class="modal-actions">

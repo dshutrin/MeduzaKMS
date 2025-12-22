@@ -386,7 +386,9 @@ html, body {
 	justify-content: start;
 }
 
-
+button:hover {
+	cursor: pointer;
+}
 
 
 /* Скрываем оригинальный input */

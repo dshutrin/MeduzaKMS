@@ -174,6 +174,7 @@ function show_edit_quest(q_id, q_name) {
 		document.getElementById(`edited_title`).value = data.title
 		document.getElementById(`edited_desc`).value = data.desc
 		document.getElementById(`edited_desc2`).value = data.subdesc
+		document.getElementById('edited_price').value = data.price
 
 		if (data.is_active) {
 			document.getElementById(`edited_activity`).checked = true
@@ -197,6 +198,7 @@ function confirm_edit_quest(q_id) {
     // Добавляем текстовые данные
     formData.append('quest_id', q_id);
 	formData.append('title', document.getElementById('edited_title').value);
+	formData.append('price', document.getElementById('edited_price').value);
     formData.append('description', document.getElementById('edited_desc').value);
     formData.append('additional_description', document.getElementById('edited_desc2').value);
     formData.append('is_active', document.getElementById('edited_activity').checked ? 'true' : 'false');
@@ -238,19 +240,20 @@ function confirm_add_quest() {
 	const formData = new FormData();
 
     // Добавляем текстовые данные
-	formData.append('title', document.getElementById('edited_title').value);
-    formData.append('description', document.getElementById('edited_desc').value);
-    formData.append('additional_description', document.getElementById('edited_desc2').value);
-    formData.append('is_active', document.getElementById('edited_activity').checked ? 'true' : 'false');
+	formData.append('title', document.getElementById('added_title').value);
+	formData.append('price', document.getElementById('added_price').value);
+    formData.append('description', document.getElementById('added_desc').value);
+    formData.append('additional_description', document.getElementById('added_desc2').value);
+    formData.append('is_active', document.getElementById('added_activity').checked ? 'true' : 'false');
 
     // Добавляем файл, если выбран
-    const fileInput = document.getElementById('custom-file-input-1');
+    const fileInput = document.getElementById('custom-file-input-2');
     if (fileInput.files.length > 0) {
         formData.append('image', fileInput.files[0]);
     }
 
     // Отправка данных на сервер
-    fetch('/api/edit_quest', {
+    fetch('/api/add_quest', {
         method: 'POST',
         body: formData
     })
@@ -259,6 +262,8 @@ function confirm_add_quest() {
 
 		if (data.success) {
 			window.location.reload()
+		} else {
+			alert(data.error)
 		}
 
     })
