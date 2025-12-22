@@ -325,7 +325,7 @@ html, body {
 #rm_question_modal, #edit_question_modal, #add_question_modal,
 #rm_quest_modal, #edit_quest_modal, #add_quest_modal {
 	position: fixed;
-	top: -100vh;
+	top: -200vh;
 	height: min-content;
 	padding: 1rem;
 	left: 30vw;
@@ -336,6 +336,8 @@ html, body {
 	display: flex;
 	flex-direction: column;
 	transition: all 0.3s ease-in-out;
+	max-height: calc(100vh - 52px - 2rem);
+	overflow-y: scroll;
 
 	@media (width <= 1024px) {
 		left: 5vw;
