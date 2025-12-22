@@ -286,6 +286,7 @@ html, body {
 
 .quest-acts {
 	display: flex;
+	flex-wrap: wrap;
 	text-align: end;
 	margin: 1rem;
 	gap: 1rem;
@@ -356,223 +357,147 @@ html, body {
 	border-radius: 5px;
 }
 
+.active-quest {
+	background-color: #037268;
+	color: white;
+	border: 1px solid lightgray;
+	border-radius: 6px;
+	padding: 0.5rem 1rem;
+}
 
+.not-active-quest {
+	background-color: indianred;
+	color: white;
+	border: 1px solid lightgray;
+	border-radius: 6px;
+	padding: 0.5rem 1rem;
+}
 
-
-
-
-
-/* Основные стили для загрузки файлов */
 .file-upload {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto 20px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 2rem;
 }
 
-/* Область для загрузки */
-.file-upload__area {
-    display: block;
-    cursor: pointer;
-    border-radius: 12px;
-	background: rgb(13, 13, 13);
-    border: 1px solid #666;
-    padding: 30px 20px;
-    transition: all 0.3s ease;
-    text-align: center;
+#custom-file-label-1, #custom-file-label-2 {
+	overflow-x: hidden;
+	display: flex;
+	justify-content: start;
 }
 
-.file-upload__area:hover {
-    border-color: #ba4242;
-    background: rgba(186, 66, 66, 0.05);
+
+
+
+/* Скрываем оригинальный input */
+#custom-file-input-1 {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
-.file-upload__area.drag-over {
-    border-color: #ba4242;
-    background: rgba(186, 66, 66, 0.1);
-    border-style: solid;
+/* Стилизуем label как кнопку */
+#custom-file-label-1 {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: #4f46e5;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  user-select: none;
 }
 
-/* Плейсхолдер */
-.file-upload__placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: #666;
+/* Состояния при наведении и фокусе */
+#custom-file-label-1:hover {
+  background: #4338ca;
 }
 
-/* Иконка */
-.file-upload__icon {
-    width: 50px;
-    height: 50px;
-    color: #ba4242;
+#custom-file-input-1:focus + #custom-file-label-1 {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
 }
 
-/* Текстовые элементы */
-.file-upload__title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
+/* Активное состояние при нажатии */
+#custom-file-label-1:active {
+  transform: scale(0.98);
 }
 
-.file-upload__subtitle {
-    font-size: 14px;
-    color: #666;
+/* Отображение выбранного файла (через JS можно менять текст) */
+#custom-file-label-1::after {
+  content: attr(data-file-name);
+  margin-left: 10px;
+  font-size: 14px;
+  color: #d1d5db;
 }
 
-.file-upload__formats {
-    font-size: 12px;
-    color: #999;
+/* Если файл не выбран */
+#custom-file-label-1:not([data-file-name])::after {
+  content: 'Файл не выбран';
 }
 
-/* Скрытый инпут */
-.file-upload__input {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
+
+
+
+/* Скрываем оригинальный input */
+#custom-file-input-2 {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
-/* Блок с информацией о файле */
-.file-info {
-    display: none;
-    margin-top: 15px;
-    animation: fadeIn 0.3s ease;
+/* Стилизуем label как кнопку */
+#custom-file-label-2 {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: #4f46e5;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  user-select: none;
 }
 
-.file-upload.has-file .file-info {
-    display: block;
+/* Состояния при наведении и фокусе */
+#custom-file-label-2:hover {
+  background: #4338ca;
 }
 
-.file-upload.has-file .file-upload__area {
-    display: none;
+#custom-file-input-2:focus + #custom-file-label-2 {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Активное состояние при нажатии */
+#custom-file-label-2:active {
+  transform: scale(0.98);
 }
 
-.file-info__content {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background: rgb(13, 13, 13);
-    border: 1px solid #666;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+/* Отображение выбранного файла (через JS можно менять текст) */
+#custom-file-label-2::after {
+  content: attr(data-file-name);
+  margin-left: 10px;
+  font-size: 14px;
+  color: #d1d5db;
 }
 
-.file-info__icon {
-    width: 40px;
-    height: 40px;
-    color: #666;
-    flex-shrink: 0;
+/* Если файл не выбран */
+#custom-file-label-2:not([data-file-name])::after {
+  content: 'Файл не выбран';
 }
-
-.file-info__details {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 0; /* Для правильной работы ellipsis */
-}
-
-.file-info__name {
-    font-weight: 500;
-    color: #333;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 15px;
-}
-
-.file-info__size {
-    font-size: 13px;
-    color: #666;
-}
-
-button {
-	cursor: pointer;
-}
-
-.file-info__remove {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgb(13, 13, 13);
-    border: 1px solid #666;
-    color: #666;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-
-.file-info__remove:hover {
-    background: #dc3545;
-    border-color: #dc3545;
-    color: white;
-    transform: scale(1.1);
-}
-
-.file-info__remove svg {
-    width: 18px;
-    height: 18px;
-}
-
-/* Ошибки */
-.file-upload__error {
-    display: none;
-    margin-top: 10px;
-    padding: 12px;
-    background: #f8d7da;
-    color: #721c24;
-    border-radius: 8px;
-    font-size: 14px;
-    animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Адаптивность */
-@media (min-width: 768px) {
-    .file-upload {
-        max-width: 450px;
-    }
-
-    .file-upload__area {
-        padding: 35px 25px;
-    }
-
-    .file-upload__icon {
-        width: 60px;
-        height: 60px;
-    }
-
-    .file-upload__title {
-        font-size: 20px;
-    }
-
-    .file-info__content {
-        padding: 20px;
-    }
-}
-
